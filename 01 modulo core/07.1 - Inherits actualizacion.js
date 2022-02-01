@@ -10,12 +10,18 @@ class MyStream extends EventEmitter {
 
 const stream = new MyStream();
 
+function addZero(num){
+  return (num < 10) ? (`0${num}`) : num
+}
+
 const funcionTiempo = ()=>{
   let date = new Date(),
-  hrs = date.getHours(),
-  min = date.getMinutes(),
-  sec = date.getSeconds(),
-  msg = `${hrs} : ${min} : ${sec}`
+    hrsAmPm = ( date.getHours() > 12 ) ? ( date.getHours() - 12 ) : date.getHours(),
+    hrs = addZero( hrsAmPm ),
+    min = addZero(date.getMinutes()),
+    sec = addZero(date.getSeconds()),
+    ampm = ( date.getHours() < 12 ) ? 'am' : 'pm',
+    msg = `${hrs} : ${min} : ${sec} ${ampm}`
   console.log(msg)
 }
 
@@ -24,3 +30,4 @@ stream.on('cucu', () => {
 });
 
 stream.reloj();
+
